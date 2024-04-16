@@ -14,7 +14,7 @@ import { DocumentRegistry } from "@jupyterlab/docregistry";
 import { CommandRegistry } from "@lumino/commands";
 
 
-import { toolbox, encodeWorkspace, decodeWorkspace, setNotebooksInstance as notebooks_1, DoFinalInitialization, UpdateAllIntellisense_R } from "./Toolbox.js";
+import { toolbox, encodeWorkspace, decodeWorkspace, setNotebooksInstance as notebooks_1, DoFinalInitialization, UpdateAllIntellisense_R } from "./Toolbox";
 
 import { RGenerator } from './RGenerator';
 

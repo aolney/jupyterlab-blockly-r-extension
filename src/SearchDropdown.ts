@@ -51,6 +51,10 @@ export class CustomFieldFilter extends Blockly.FieldTextInput {
     var editor = this.dropdownCreate_();
     Blockly.DropDownDiv.getContentDiv().appendChild(editor);
 
+    // Unclear how to reference source block in new typescript approach
+    // Blockly.DropDownDiv.setColour(this.sourceBlock_.style.colourPrimary,this.sourceBlock_.style.colourTertiary);
+    Blockly.DropDownDiv.setColour("#5C68A6","#5C68A6"); //HSV number should be allowed
+
     Blockly.DropDownDiv.showPositionedByField(
       this,
       this.dropdownDispose_.bind(this)

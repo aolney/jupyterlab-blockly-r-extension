@@ -1,6 +1,6 @@
 import { RGenerator } from "./RGenerator";
 import { side_effects_r_generator as side_effects_r_generator_1 } from "./RGenerator";
-import { CustomFields as CustomFields_1 } from "./SearchDropdown.js";
+import { CustomFields as CustomFields_1 } from "./SearchDropdown";
 import * as Blockly from "blockly";
 import { createMinusField } from "./field_minus";
 import { createPlusField } from "./field_plus";
@@ -589,8 +589,10 @@ export function RequestIntellisenseVariable_R(block: Blockly.Block, parentName: 
           }
           const intellisenseUpdateEvent = new Blockly.Events.BlockChange(block, "field", "VAR", 0, 1);
           intellisenseUpdateEvent.group = "INTELLISENSE";
-          console.log("event status is " + Blockly.Events.disable);
-          Blockly.Events.enable;
+          // @ts-ignore
+          console.log("event status is " + Blockly.Events.disabled_); //disabled_ existed in old version but not new version?
+          // @ts-ignore
+          Blockly.Events.disabled_ = 0;
           Blockly.Events.fire(intellisenseUpdateEvent);
         }).catch(error => {
           console.log("Error resolving promises:", error);
