@@ -1,5 +1,8 @@
 # jupyterlab-blockly-r-extension
 
+[!WARNING]
+This readme is out of sync with the current beta version targetting JupyterLab v4.x. As a result, specific instalation/build instructions may no longer be valid. While this is being resolved, please see the [extension tutorial](https://jupyterlab.readthedocs.io/en/latest/extension/extension_tutorial.html#extension-tutorial) for general practices for installing/building.
+
 A [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/) extension implementing a Blockly palette for R using [Fable](https://fable.io/) tooling.  For data science training materials using this extension, see [here](https://github.com/memphis-iis/datawhys-content-notebooks).
 
 This is the twin of [jupyterlab-blockly-python-extension](https://github.com/aolney/jupyterlab-blockly-python-extension) but for `R` rather than `Python` (which that other repo supports). These two extensions are designed to operate side by side.
