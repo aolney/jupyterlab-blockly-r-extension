@@ -178,7 +178,7 @@ export function BlocklyWidget__get_onKernelExecuted(this$: BlocklyWidget): ((arg
       const messageType: string = args.header.msg_type.toString();
       switch (messageType) {
         case "execute_input": {
-          console.log("jupyterlab_blockly_extension_python: kernel executed code, updating intellisense");
+          console.log("jupyterlab_blockly_extension_r: kernel executed code, updating intellisense");
           // LogToServer(JupyterLogEntry082720_Create("execute-code", args.content.code));
           UpdateAllIntellisense_R();
           break;
@@ -257,13 +257,13 @@ export function BlocklyWidget__RenderCode(this$: BlocklyWidget): void {
     }
     else {
       this$.notebooks.activeCell.model.sharedModel.setSource(code + "\n#" + encodeWorkspace());
-      console.log(("jupyterlab_blockly_extension_python: wrote to active cell\n" + code) + "\n");
+      console.log(("jupyterlab_blockly_extension_r: wrote to active cell\n" + code) + "\n");
       // LogToServer(JupyterLogEntry082720_Create("blocks-to-code", this$.notebooks.activeCell.model.value.text));
       BlocklyWidget__set_blocksRendered(this$, true);
     }
   }
   else {
-    console.log(("jupyterlab_blockly_extension_python: no cell active, flushed\n" + code) + "\n");
+    console.log(("jupyterlab_blockly_extension_r: no cell active, flushed\n" + code) + "\n");
   }
 };
 
@@ -284,11 +284,11 @@ export function BlocklyWidget__RenderBlocks(this$: BlocklyWidget): void {
       }
     } catch (e: any) {
       window.alert("Unable to perform \'Code to Blocks\': XML is either invald or renames existing variables. Specific error message is: " + e.message);
-      console.log("jupyterlab_blockly_extension_python: unable to decode blocks, last line is invald xml");
+      console.log("jupyterlab_blockly_extension_r: unable to decode blocks, last line is invald xml");
     }
   }
   else {
-    console.log("jupyterlab_blockly_extension_python: unable to decode blocks, active cell is null");
+    console.log("jupyterlab_blockly_extension_r: unable to decode blocks, active cell is null");
   }
 };
 
@@ -320,7 +320,7 @@ export function BlocklyWidget__RenderCodeToLastCell(this$: BlocklyWidget): void 
           const blocks: Blockly.Block[] = BlocklyWidget__get_workspace(this$).getAllBlocks(false);
           if (blocks.length > 0) {
             BlocklyWidget__get_lastCell(this$).model.sharedModel.setSource(code + "\n#" + encodeWorkspace());
-            console.log(("jupyterlab_blockly_extension_python: wrote to active cell\n" + code) + "\n");
+            console.log(("jupyterlab_blockly_extension_r: wrote to active cell\n" + code) + "\n");
             // LogToServer(JupyterLogEntry082720_Create("blocks-to-code-autosave", this$.notebooks.activeCell.model.value.text));
           }
         }
@@ -328,7 +328,7 @@ export function BlocklyWidget__RenderCodeToLastCell(this$: BlocklyWidget): void 
     }
   }
   else {
-    console.log(("jupyterlab_blockly_extension_python: no cell active, flushed instead of autosave\n" + code) + "\n");
+    console.log(("jupyterlab_blockly_extension_r: no cell active, flushed instead of autosave\n" + code) + "\n");
   }
 };
 
