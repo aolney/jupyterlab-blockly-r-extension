@@ -478,7 +478,7 @@ export function GetKernalInspection(queryString: string): Promise<string> {
           if(mimeType){
             const renderer: IRenderMime.IRenderer = widget.content.rendermime.createRenderer(mimeType);
             renderer.renderModel(model).then(() => {
-              console.log("debug: kernel inspected " + queryString) //for debug only
+              // console.log("debug: kernel inspected " + queryString) //for debug only
               resolve(renderer.node.innerText);
             }).catch((error: any) => {
               console.log(queryString + ":RENDER_ERROR");
@@ -629,34 +629,13 @@ export function RequestIntellisenseVariable_R(block: Blockly.Block, parentName: 
       // Trigger update intellisense even if we are cached (this could be reconsidered, but original code does this)
       fireIntellisenseEvent(block)
     } else {
-      // ------------------------------------------------------------------------------
-      // // Get children by prefixing on parent's name (package completions)
-      // GetKernelCompletion(parentName + "::").then((childCompletions: string[]) => {
-      //   // Set up inspections for all children
-      //   // const pr: Promise<string>[] = childCompletions.map((childCompletion: string) => GetKernalInspection(childCompletion));
-      //   const pr: Promise<string>[] = childCompletions.map((childCompletion: string) => timeoutPromise<string>( 500, GetKernalInspection(childCompletion)) );
-      //   // Synchronize on inspections to yield the final result
-      //   Promise.all(pr).then((inspections: string[]) => {
-      //     // Create an intellisense entries for children, sorted alphabetically
-      //     let children: IntellisenseEntry[] = childCompletions.map((childCompletion: string, index: number) => {
-      //       const childName: string = childCompletion.replace(new RegExp(parentName + "::"), "");
-      //       return new IntellisenseEntry(childName, inspections[index], isFunction_R(childName, inspections[index]), isClass_R(inspections[index]))}).sort((a, b) => (a.Name < b.Name ? -1 : 1));
-      //     // Package up IntellisenseVariable (parent + children)
-      //     let intellisenseVariable: IntellisenseVariable = new IntellisenseVariable(parent, children);
-      //     // Add to cache
-      //     intellisenseLookup.set(parentName, intellisenseVariable);
-      // ---------------------------------------------------------------------------
-
-      // Alternative version to the above using settled; still doesn't work
       // Get children by prefixing on parent's name (package completions)
       GetKernelCompletion(parentName + "::").then((childCompletions: string[]) => {
         // Set up inspections for all children
-        // const pr: Promise<string>[] = childCompletions.map((childCompletion: string) => GetKernalInspection(childCompletion));
         const pr: Promise<string>[] = childCompletions.map((childCompletion: string) => timeoutPromise<string>( 500, GetKernalInspection(childCompletion)) );
         // Synchronize on inspections to yield the final result
         Promise.allSettled(pr).then((results : PromiseSettledResult<string>[]) => {
           // Create an intellisense entries for children, sorted alphabetically
-          // inspections: string[]
           let children: IntellisenseEntry[] = childCompletions.map((childCompletion: string, index: number) => {
             const childName: string = childCompletion.replace(new RegExp(parentName + "::"), "");
             let info = "";
@@ -666,7 +645,7 @@ export function RequestIntellisenseVariable_R(block: Blockly.Block, parentName: 
               info = (results[index] as PromiseFulfilledResult<string>).value;
               isFunction = isFunction_R(childName, info);
               isClass = isClass_R(info);
-            } //inspections[index], isFunction_R(childName, inspections[index]), isClass_R(inspections[index]
+            } 
             return new IntellisenseEntry(childName, info, isFunction, isClass)}).sort((a, b) => (a.Name < b.Name ? -1 : 1));
           // Package up IntellisenseVariable (parent + children)
           let intellisenseVariable: IntellisenseVariable = new IntellisenseVariable(parent, children);
