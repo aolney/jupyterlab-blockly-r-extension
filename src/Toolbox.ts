@@ -521,14 +521,27 @@ export function RestoreIntellisenseCacheFromStateDB(pojo: any): void {
  * We need some special handling for cases like dplyr %>%, which is surrounded in backticks
  */
 export function isFunction_R(query: string, info: string): boolean {
-  if (query.indexOf("`") === 0) {
+  // for %>% and other backticked functions
+  if (query.startsWith("`")) {
       return true;
   }
-  else if (info.indexOf("Class attribute:\n\'function\'") >= 0) {
+  // indicates it takes parameters
+  else if (info.includes( query + "(") ) {
+    return true;
+  }
+  // explicit marking of function in documentation
+  else if (info.includes("Class attribute:\n\'function\'") ) {
       return true;
   }
-  else if (info.indexOf("Usage") >= 0) {
-      return info.indexOf("Arguments") >= 0;
+  else if (info.includes("Usage") && info.includes("Arguments")) {
+      return true;
+  }
+  // look for words that otherwise indicate functionhood. These matchers might be too aggressive; hard to say since R is mostly functions
+  else if (info.includes("function") || info.includes("Function")) {
+    return true;
+  }
+  else if (info.includes("object") || info.includes("Object")) {
+    return true;
   }
   else {
       return false;
@@ -631,8 +644,8 @@ export function RequestIntellisenseVariable_R(block: Blockly.Block, parentName: 
     } else {
       // Get children by prefixing on parent's name (package completions)
       GetKernelCompletion(parentName + "::").then((childCompletions: string[]) => {
-        // Set up inspections for all children
-        const pr: Promise<string>[] = childCompletions.map((childCompletion: string) => timeoutPromise<string>( 500, GetKernalInspection(childCompletion)) );
+        // Set up inspections for all children; use a timeout promise so we don't wait forever; make timeout dynamic based on which child this is (assumes serial bottleneck at kernel)
+        const pr: Promise<string>[] = childCompletions.map((childCompletion: string, index: number) => timeoutPromise<string>( 100 * (index+1) , GetKernalInspection(childCompletion)) );
         // Synchronize on inspections to yield the final result
         Promise.allSettled(pr).then((results : PromiseSettledResult<string>[]) => {
           // Create an intellisense entries for children, sorted alphabetically
