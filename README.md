@@ -7,7 +7,7 @@ For a `Python` extension with the same Blockly functionality, see [here](https:/
 
 The following query string parameters enable functionality:
 
-- bl=py forces the extension to display on load (it is already active)
+- bl=r forces the extension to display on load (it is already active)
 - log=xxx specifies a url for a logging endpoint (e.g. https://yourdomain.com/log)
 - id=xxx adds an identifier for logging
 

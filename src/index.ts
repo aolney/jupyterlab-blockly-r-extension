@@ -376,11 +376,12 @@ export function attachWidget(app: JupyterFrontEnd, notebooks: INotebookTracker, 
 };
 
 export const runCommandOnNotebookChanged = function(this: any, sender: IWidgetTracker<NotebookPanel>, args: NotebookPanel | null): boolean{
+  const appContext = this;  
   const matchValue = sender.currentWidget;
   if (matchValue == null) {}
   else {
     console.log("jupyterlab_blockly_extension_r: notebook changed, autorunning blockly r command");
-    this.commands.execute("blockly_r:open");
+    appContext.commands.execute("blockly_r:open");
   }
   return true;
 };
