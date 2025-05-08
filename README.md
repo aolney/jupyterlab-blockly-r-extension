@@ -1,5 +1,8 @@
 # aolney_jupyterlab_blockly_r_extension
 
+> [!CAUTION]
+> This repo is deprecated; please see the [Polyglot repo](https://github.com/aolney/jupyterlab-blockly-polyglot-extension)
+
 [![Github Actions Status](https://github.com/aolney/jupyterlab-blockly-r-extension/workflows/Build/badge.svg)](https://github.com/aolney/jupyterlab-blockly-r-extension/actions/workflows/build.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/aolney/jupyterlab-blockly-r-extension/main?urlpath=lab)
 A JupyterLab extension implementing a Blockly palette for the `R` language.
 For data science training materials using this extension, see [here](https://github.com/memphis-iis/datawhys-content-notebooks-r).
